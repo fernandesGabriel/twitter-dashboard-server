@@ -1,0 +1,13 @@
+{
+  "name": "twitter-dashboard-back",
+  "version": "1.0.0",
+  "description": "Simples Twitter Dashboard",
+  "author": "Gabriel Fernandes <gabriel_fernandes1993@hotmail.com>",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17"
+  }
+}

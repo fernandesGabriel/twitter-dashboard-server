@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+
+    back-end:
+        build:
+            context: .
+            target: app
+        volumes:
+            - ".:/twitter-dashboard"
+        expose:
+            - "8080"
+        ports:
+            - "8082:8080"
+        env_file:
+            - .env
+
+    cli:
+        build:
+            context: .
+            target: cli
+        volumes:
+            - ".:/twitter-dashboard" 
+        env_file:
+            - .env
+    
+networks:
+    default:
+        name: twitter-dashboard
+    
