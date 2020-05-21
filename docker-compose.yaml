@@ -14,6 +14,7 @@ services:
             - "3002:3000"
         env_file:
             - .env
+        stdin_open: true
 
     cli:
         build:
