@@ -9,14 +9,20 @@ FROM node:${NODE_VERSION}-alpine${ALPINE_VERSION} AS base
 ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
 
+RUN set -x \
+ && mkdir /twitter-dashboard \ 
+ && chown -R node:node /twitter-dashboard
+
 WORKDIR /twitter-dashboard
+
+USER node
 
 
 # -------------------- dependencies -------------------- #
 
 FROM base AS dependencies
 
-COPY package*.json ./
+COPY --chown=node:node package*.json ./
 
 RUN set -x \
  && npm install
@@ -30,9 +36,9 @@ ARG PORT=3000
 ENV PORT $PORT
 EXPOSE $PORT
 
-COPY --from=dependencies /twitter-dashboard ./
+COPY --chown=node:node --from=dependencies /twitter-dashboard ./
 
-COPY . ./
+COPY --chown=node:node . ./
 
 CMD [ "npm", "start" ]
 
