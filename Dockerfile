@@ -62,6 +62,8 @@ FROM app AS dev-app
 
 COPY --chown=node:node --from=dev-dependencies /twitter-dashboard ./
 
+ENV PATH=/twitter-dashboard/node_modules/.bin:$PATH
+
 CMD [ "npm", "run", "start-dev" ]
 
 
