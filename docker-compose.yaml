@@ -5,7 +5,7 @@ services:
     back-end:
         build:
             context: .
-            target: app
+            target: dev-app
             args:
                 - PORT=3000
                 - NODE_ENV=development

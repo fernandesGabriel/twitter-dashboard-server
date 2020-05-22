@@ -25,12 +25,12 @@ FROM base AS dependencies
 COPY --chown=node:node package*.json ./
 
 RUN set -x \
- && npm install
- 
+ && npm ci
+
 
 # -------------------- app -------------------- #
 
-FROM dependencies AS app
+FROM base AS app
 
 ARG PORT=3000
 ENV PORT $PORT
@@ -40,9 +40,31 @@ COPY --chown=node:node --from=dependencies /twitter-dashboard ./
 
 COPY --chown=node:node . ./
 
+
+# -------------------- prod-app -------------------- #
+
+FROM app AS prod-app
+
 CMD [ "npm", "start" ]
+
+
+# -------------------- dev-dependencies -------------------- #
+
+FROM dependencies AS dev-dependencies
+
+RUN set -x \
+ && npm install --only=development
+
+
+# -------------------- dev-app -------------------- #
+
+FROM app AS dev-app
+
+COPY --chown=node:node --from=dev-dependencies /twitter-dashboard ./
+
+CMD [ "npm", "run", "start-dev" ]
 
 
 # -------------------- cli -------------------- #
 
-FROM dependencies AS cli
+FROM base AS cli
