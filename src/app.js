@@ -1,25 +1,14 @@
 'use strict';
 
-const express = require('express');
-const http = require('http');
-const socketIo = require('socket.io');
+const app = require('express')();
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
 
-const app = express();
+app.use(require('./controllers'));
 
-// define routes
-app.use(require('./routes/api'));
+io.on('connection', require('./sockets'));
 
-// boot server
-const server = http.createServer(app);
-
-// boot socket server
-const io = socketIo(server);
-
-// define sockets
-io.on('connection', require('./services/socket'));
-
-// listen for requests
 const port = process.env.PORT || 3000;
-server.listen(port, () => {
+http.listen(port, () => {
   console.log(`Listening on port ${port}`)
 });

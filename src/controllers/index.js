@@ -2,6 +2,6 @@
 
 const router = require('express').Router();
 
-router.get('/', require('../controllers/api/index'));
+router.get('/socket/feed', require('./socket/feed'));
 
 module.exports = router;
