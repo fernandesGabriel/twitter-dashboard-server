@@ -2,13 +2,11 @@
 
 const app = require('express')();
 const http = require('http').createServer(app);
-const io = require('socket.io')(http);
+
+app.set('port', process.env.PORT || 3000);
 
 app.use(require('./controllers'));
 
-io.on('connection', require('./sockets'));
-
-const port = process.env.PORT || 3000;
-http.listen(port, () => {
-  console.log(`Listening on port ${port}`)
+http.listen(app.get('port'), () => {
+  console.log(`Listening on port ${app.get('port')}`)
 });
