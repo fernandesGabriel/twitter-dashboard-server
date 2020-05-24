@@ -1,4 +1,4 @@
-_: npm-install build start
+_: setup-env npm-install build start
 
 build:
 	DOCKER_BUILDKIT=1 docker-compose build --pull --parallel
@@ -17,3 +17,8 @@ npm-install:
 
 npm-upgrade:
 	docker-compose run --rm cli npm upgrade
+
+setup-env:
+	if [ ! -f ".env" ]; then \
+    	cp .env.dist .env; \
+    fi
