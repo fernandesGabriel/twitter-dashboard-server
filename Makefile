@@ -1,4 +1,4 @@
-_: setup-env npm-install build start
+_: npm-install build start
 
 build:
 	DOCKER_BUILDKIT=1 docker-compose build --pull --parallel
