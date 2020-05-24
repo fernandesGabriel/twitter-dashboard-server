@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
 
-    back-end:
+    server:
         build:
             context: .
             target: dev-app
@@ -10,7 +10,7 @@ services:
                 - PORT=3000
                 - NODE_ENV=development
         volumes:
-            - ".:/twitter-dashboard"
+            - ".:/twitter-dashboard-server"
         ports:
             - "3000:3000"
         stdin_open: true
@@ -20,4 +20,4 @@ services:
             context: .
             target: cli
         volumes:
-            - ".:/twitter-dashboard" 
+            - ".:/twitter-dashboard-server" 

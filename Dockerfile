@@ -10,10 +10,10 @@ ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
 
 RUN set -x \
- && mkdir /twitter-dashboard \ 
- && chown -R node:node /twitter-dashboard
+ && mkdir /twitter-dashboard-server \ 
+ && chown -R node:node /twitter-dashboard-server
 
-WORKDIR /twitter-dashboard
+WORKDIR /twitter-dashboard-server
 
 USER node
 
@@ -36,7 +36,7 @@ ARG PORT=3000
 ENV PORT $PORT
 EXPOSE $PORT
 
-COPY --chown=node:node --from=dependencies /twitter-dashboard ./
+COPY --chown=node:node --from=dependencies /twitter-dashboard-server ./
 
 COPY --chown=node:node . ./
 
@@ -60,9 +60,9 @@ RUN set -x \
 
 FROM app AS dev-app
 
-COPY --chown=node:node --from=dev-dependencies /twitter-dashboard ./
+COPY --chown=node:node --from=dev-dependencies /twitter-dashboard-server ./
 
-ENV PATH=/twitter-dashboard/node_modules/.bin:$PATH
+ENV PATH=/twitter-dashboard-server/node_modules/.bin:$PATH
 
 CMD [ "npm", "run", "start-dev" ]
 
