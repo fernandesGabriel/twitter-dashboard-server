@@ -30,4 +30,4 @@ http://localhost:3000
 - Add tests
 - Add error collection and improve user handling
 - Revise structure of sockets
-- Fix misbehavior of tweeter stream destroy method
+- Fix misbehavior of twitter stream destroy method
