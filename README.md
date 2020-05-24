@@ -20,6 +20,11 @@ make build
 docker-compose up server
 ```
 
+Your server will be available at:
+```
+http://localhost:3000
+```
+
 ### To-do
 
 - Add tests
