@@ -1,6 +1,5 @@
 'use strict';
 
-
 const TRACK_CHANNEL = 'twitter-track-for';
 const STREAM_CHANNEL = 'twitter-stream';
 
@@ -15,13 +14,13 @@ module.exports = (socket) => {
   let twitterStream;
 
   socket.on(TRACK_CHANNEL, (from, track) => {
-    if (twitterStream) 
+    if (twitterStream)
       twitterStream.destroy();
 
     if (track)
       stream(track);
   });
-  
+
   const stream = (track) => {
     twitter.stream('statuses/filter', { track: track }, (stream) => {
       stream.on('data', (data) => {
