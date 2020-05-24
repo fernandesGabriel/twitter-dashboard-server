@@ -4,6 +4,8 @@ const TRACK_CHANNEL = 'twitter-track-for';
 const STREAM_CHANNEL = 'twitter-stream';
 
 module.exports = (socket) => {
+  let twitterStream;
+
   const twitter = new require('twitter')({
     consumer_key: process.env.TWITTER_CONSUMER_KEY,
     consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
@@ -11,15 +13,9 @@ module.exports = (socket) => {
     access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
   });
 
-  let twitterStream;
-
-  socket.on(TRACK_CHANNEL, (from, track) => {
-    if (twitterStream)
-      twitterStream.destroy();
-
-    if (track)
-      stream(track);
-  });
+  const emit = (data) => {
+    socket.emit(STREAM_CHANNEL, data);
+  }
 
   const stream = (track) => {
     twitter.stream('statuses/filter', { track: track }, (stream) => {
@@ -35,7 +31,11 @@ module.exports = (socket) => {
     });
   }
 
-  const emit = (data) => {
-    socket.emit(STREAM_CHANNEL, data);
-  }
+  socket.on(TRACK_CHANNEL, (from, track) => {
+    if (twitterStream)
+      twitterStream.destroy();
+
+    if (track)
+      stream(track);
+  });
 }
