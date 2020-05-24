@@ -5,7 +5,8 @@
   "author": "Gabriel Fernandes <gabriel_fernandes1993@hotmail.com>",
   "dependencies": {
     "express": "^4.17.1",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.3.0",
+    "twitter": "^1.7.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
